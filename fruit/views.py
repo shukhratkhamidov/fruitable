@@ -14,7 +14,9 @@ class HomeView(TemplateView):
     def get_context_data(self,*args, **kwargs):
         context = super(HomeView, self).get_context_data(*args,**kwargs)
         context['products'] = Product.objects.all()
+        context['bestseller_products'] = Product.objects.all().order_by('-rating')[:6]
         context['categories'] = Category.objects.all()
+        context["reyting"] = [1,2,3,4,5]
 
         query = self.request.GET.get('q')
         if query:
